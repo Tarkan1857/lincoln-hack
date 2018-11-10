@@ -1,24 +1,22 @@
 import {Socket} from "socket.io";
-import {User} from "./user";
+import {Team, User} from "./user";
+import {Game} from "./game";
 
 const server = require('http').createServer();
 
 const io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
-const minPlayerCount = 10;
+const minPlayerCount = 2;
 const maxPlayerCount = 50;
 
-
 let state = 'init';
-const userSockets: Socket[] = [];
 const users: User[] = [];
-let currentTeam = 0;
+let currentTeam = Team.CHAOS;
 
 io.on('connection', (socket: Socket) => {
     console.log('user connected');
-    userSockets.push(socket);
-    const user = new User(currentTeam);
-    currentTeam = currentTeam === 0 ? 1 : 0;
+    const user = new User(currentTeam, socket);
+    currentTeam = currentTeam === Team.CHAOS ? Team.ORDER : Team.CHAOS;
     users.push(user);
     socket.emit('team', user.team);
     console.log(`users: ${users.length}`);
@@ -31,14 +29,15 @@ io.on('connection', (socket: Socket) => {
         user.ready = true;
         user.name = msg;
         console.log(`User named ${msg}`);
+        io.emit('player-joined', msg);
         if(checkReady() || checkPlayerCount()) {
+            console.log('starting game')
             startGame()
         }
     });
 
     socket.on('disconnect', () => {
-        const userIndex = userSockets.indexOf(socket);
-        userSockets.splice(userIndex, 1);
+        const userIndex = users.indexOf(user);
         users.splice(userIndex, 1);
         console.log('user disconnected');
         console.log(`users: ${users.length}`);
@@ -56,6 +55,8 @@ function checkPlayerCount(): boolean {
 function startGame() {
     state = 'play';
     io.emit('state', state);
+    const game = new Game(io, users);
+    game.start();
 }
 
 server.listen(port);
