@@ -1,10 +1,11 @@
 import * as io from 'socket.io';
-import {Game} from "../server/game";
+import {Game} from "./game";
 
 const socket = io();
 
 socket.on('ready', () => {
-    new Game(socket);
+    const main = document.querySelector('main');
+    const game = new Game(socket);
 });
 
 

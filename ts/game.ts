@@ -1,12 +1,13 @@
 import * as PIXI from "pixi.js";
-import {Socket} from "socket.io";
+import {Server} from "socket.io";
 
 export class Game {
-    constructor(private socket: Socket) {
+    private readonly view: HTMLCanvasElement;
+    constructor(private socket: Server) {
         const game = new PIXI.Application({width: 1280, height: 720});
+        this.view = game.view;
         const main = document.querySelector('main');
-        main.innerHTML = '';
-        main.appendChild(game.view);
+        main.appendChild(this.view);
 
     }
 }
