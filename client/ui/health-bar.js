@@ -1,31 +1,28 @@
+const pipCount = 8;
+
 export class HealthBar extends PIXI.Container {
-    constructor(images,) {
+    // first:
+    // 325, 16
+
+    // width: 73 per pip
+    // 8 total
+    constructor(initialHealth) {
         super();
-        this.images = images;
-        this.healths = [];
-        this.createHealthBar()
+        this.health = initialHealth;
+        this.healthPerTick = initialHealth / pipCount;
+        this.pips = [];
+        for(let i = 0; i < 8; i++) {
+            const pip = PIXI.Sprite.fromImage('pip');
+            pip.x = 73 * i;
+            this.addChild(pip);
+            this.pips.push(pip);
+        }
     };
-
-    createHealthBar() {
-        for (let health in this.images)
-        {
-            this.healths.push(this.addChild(new PIXI.Sprite(this.images[health])));
-        }
-    }
     
-    healthAdded(idx, image) {
-        for (let added = 0; added < idx; ++added)
-        {
-            this.removeChild(this.healths[idx[added]]);
-            this.healths[idx[added]] = new PIXI.Sprite(image);
-        }
-    }
+   damage(amount) {
+       // TODO: calculate how many pips remain and remove extras
+       this.health -= amount;
+       this.health < 0 && (this.health = 0);
 
-    damageTaken(idx, image) {
-        for (let added = 0; added < idx; ++added)
-        {
-            this.removeChild(this.healths[idx[added]]);
-            this.healths[idx[added]] = new PIXI.Sprite(image);
-        }
-    }
+   }
 }
