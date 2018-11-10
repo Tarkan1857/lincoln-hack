@@ -7,7 +7,7 @@ const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 
 app.get('/', (req: any, res: any) => {
-    res.send(`${__dirname}../client/index.html`);
+    res.send(`${__dirname}\\index.html`);
 });
 
 http.listen(port, () => {
