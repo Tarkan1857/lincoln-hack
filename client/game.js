@@ -1,15 +1,28 @@
 import {Button} from "./ui/button.js";
+import {HealthBar} from "./ui/health-bar";
 
 export class Game {
     constructor(socket) {
         this._socket = socket;
-        const game = new PIXI.Application({width: 1280, height: 720});
+        const game = new PIXI.Application({width: 1920, height: 1080});
+        game.renderer.autoResize = true;
         this.view = game.view;
         const main = document.querySelector('main');
-        
+
         main.appendChild(this.view);
 
+        this.spawnObjects(game);
+    }
+
+    spawnObjects(game) {
+        const background = new PIXI.Sprite.fromImage("GFX/Map.jpg");
+        game.stage.addChild(background);
         this.spawnButton(game);
+    }
+
+    spawnHealthbar(game)
+    {
+       
     }
 
     spawnButton(game) {
