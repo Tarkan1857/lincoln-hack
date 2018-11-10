@@ -12,16 +12,20 @@ export class HealthBar extends PIXI.Container {
             this.healths.push(this.addChild(new PIXI.Sprite(this.images[health])));
         }
     }
-
-    // total will be an array of indexes
-    healthAdded(total, image) {
-        for (let added = 0; added < total; ++added)
+    
+    healthAdded(idx, image) {
+        for (let added = 0; added < idx; ++added)
         {
-            this.healths[total[added]].setTe
+            this.removeChild(this.healths[idx[added]]);
+            this.healths[idx[added]] = new PIXI.Sprite(image);
         }
     }
 
-    damageTaken(total) {
-
+    damageTaken(idx, image) {
+        for (let added = 0; added < idx; ++added)
+        {
+            this.removeChild(this.healths[idx[added]]);
+            this.healths[idx[added]] = new PIXI.Sprite(image);
+        }
     }
 }
