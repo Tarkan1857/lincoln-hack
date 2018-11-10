@@ -4,7 +4,7 @@ import {HealthBar} from "./ui/health-bar.js";
 export class Game {
     constructor(socket) {
         this._socket = socket;
-        const game = new PIXI.Application({width: 1920, height: 1080});
+        const game = new PIXI.Application({width: 1520, height: 1080});
         game.renderer.autoResize = true;
         this.view = game.view;
         const main = document.querySelector('main');
