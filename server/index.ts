@@ -22,8 +22,9 @@ io.on('connection', (socket: Socket) => {
     currentTeam = currentTeam === 0 ? 1 : 0;
     users.push(user);
     socket.emit('team', user.team);
-
+    console.log(`users: ${users.length}`);
     socket.on('chat', (msg) => {
+        console.log(`chat: ${msg}`);
         io.emit('chat', msg);
     });
 
@@ -36,8 +37,11 @@ io.on('connection', (socket: Socket) => {
     });
 
     socket.on('disconnect', () => {
-        userSockets.splice(userSockets.indexOf(socket), 1);
+        const userIndex = userSockets.indexOf(socket);
+        userSockets.splice(userIndex, 1);
+        users.splice(userIndex, 1);
         console.log('user disconnected');
+        console.log(`users: ${users.length}`);
     })
 });
 
