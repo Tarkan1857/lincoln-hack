@@ -1,4 +1,4 @@
-import {Game} from "./game";
+import {Game} from "./game.js";
 
 const socket = io('http://localhost:3000');
 
