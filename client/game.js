@@ -15,7 +15,7 @@ export class Game {
     }
 
     spawnObjects(game) {
-        const background = new PIXI.Sprite.fromImage("GFX/Map.jpg");
+        const background = new PIXI.Sprite.fromImage("map");
         game.stage.addChild(background);
         this.spawnButton(game);
     }
