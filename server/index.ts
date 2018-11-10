@@ -1,21 +1,13 @@
 import {Socket} from "socket.io";
-import {User} from "./server/user";
+import {User} from "./user";
 
-const app = require('express')();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const server = require('http').createServer();
+
+const io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
 const minPlayerCount = 10;
 const maxPlayerCount = 50;
 
-
-app.get('/', (req: any, res: any) => {
-    res.sendFile(`${__dirname}\\index.html`);
-});
-
-http.listen(port, () => {
-    console.log(`listening on *:${port}`);
-});
 
 let state = 'init';
 const userSockets: Socket[] = [];
@@ -61,3 +53,5 @@ function startGame() {
     state = 'play';
     io.emit('state', state);
 }
+
+server.listen(port);

@@ -2,9 +2,9 @@
   "name": "lincoln-hack",
   "version": "1.0.0",
   "description": "Terrible code for lincoln hack baby!",
-  "main": "index.ts",
+  "main": "server/index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
+    "start-server": "ts-node server/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
