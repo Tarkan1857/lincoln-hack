@@ -5,11 +5,19 @@ export class Button extends PIXI.Sprite {
         this.createButton(x, y, width, height);
     }
 
-    createButton(x, y, width, height) {
+    createButton(x, y, width, height, image) {
         let gfx = new PIXI.Graphics();
-        gfx.beginFill(0xfffffff, 1);
-        gfx.drawRoundedRect(0, 0, width, height, height / 5);
-        gfx.endFill();
+        if(image === undefined)
+        {
+            gfx.beginFill(0xfffffff, 1);
+            gfx.drawRoundedRect(0, 0, width, height, height / 5);
+            gfx.endFill();
+        }
+        else
+        {
+            gfx = new PIXI.Sprite.fromImage(image);
+        }
+
 
         this.texture = gfx.generateCanvasTexture();
 
