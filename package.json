@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Tarkan1857/lincoln-hack/issues"
   },
-  "homepage": "https://github.com/Tarkan1857/lincoln-hack#readme"
+  "homepage": "https://github.com/Tarkan1857/lincoln-hack#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
+  }
 }
