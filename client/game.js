@@ -1,4 +1,4 @@
-import {Button} from "./common-ui/button.js";
+import {Button} from "./ui/button.js";
 
 export class Game {
     constructor(socket) {
