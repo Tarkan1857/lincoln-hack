@@ -1,5 +1,5 @@
 import {Button} from "./ui/button.js";
-import {HealthBar} from "./ui/health-bar";
+import {HealthBar} from "./ui/health-bar.js";
 
 export class Game {
     constructor(socket) {
