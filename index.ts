@@ -1,13 +1,16 @@
 import {Socket} from "socket.io";
-import {User} from "./user";
+import {User} from "./server/user";
 
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
+const minPlayerCount = 10;
+const maxPlayerCount = 50;
+
 
 app.get('/', (req: any, res: any) => {
-    res.send(`${__dirname}..\\index.html`);
+    res.sendFile(`${__dirname}\\index.html`);
 });
 
 http.listen(port, () => {
@@ -17,20 +20,27 @@ http.listen(port, () => {
 let state = 'init';
 const userSockets: Socket[] = [];
 const users: User[] = [];
+let currentTeam = 0;
 
 io.on('connection', (socket: Socket) => {
     console.log('user connected');
     socket.emit('nameRequest');
     userSockets.push(socket);
-    const user = new User();
+    const user = new User(currentTeam);
+    currentTeam = currentTeam === 0 ? 1 : 0;
     users.push(user);
-
-    socket.on('setName', (name) => {
-        user.name = name;
-    });
+    socket.emit('team', user.team);
 
     socket.on('chat', (msg) => {
         io.emit('chat', msg);
+    });
+
+    socket.on('ready', (msg) => {
+        user.ready = true;
+        user.name = msg;
+        if(checkReady() || checkPlayerCount()) {
+            startGame()
+        }
     });
 
     socket.on('disconnect', () => {
@@ -39,3 +49,15 @@ io.on('connection', (socket: Socket) => {
     })
 });
 
+function checkReady(): boolean {
+    return users.every((u) => u.ready) && users.length >= minPlayerCount;
+}
+
+function checkPlayerCount(): boolean {
+    return users.length === maxPlayerCount;
+}
+
+function startGame() {
+    state = 'play';
+    io.emit('state', state);
+}
