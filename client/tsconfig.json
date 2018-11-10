@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
         "target": "es6",
-        "outDir": "client/js",
+        "outDir": "js",
         "sourceMap": true,
         "watch": true
     },
+
     "include": [
-        "client/ts/**/*.ts"
+        "ts/**/*.ts"
     ]
 }
