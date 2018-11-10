@@ -18,7 +18,6 @@ export class Button extends PIXI.Sprite {
             gfx = new PIXI.Sprite.fromImage(image);
         }
 
-
         this.texture = gfx.generateCanvasTexture();
 
         // Set X, Y and Anchor
@@ -31,7 +30,7 @@ export class Button extends PIXI.Sprite {
         this.interactive = true;
 
         // TODO: pass callback into onDown
-        this.on("mouseDown", () => {this.onDown()})
+        this.on("mousedown", () => {this.onDown()})
     }
 
     onDown(callback){
