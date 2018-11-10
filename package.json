@@ -1,0 +1,19 @@
+{
+  "name": "lincoln-hack",
+  "version": "1.0.0",
+  "description": "Terrible code for lincoln hack baby!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tarkan1857/lincoln-hack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tarkan1857/lincoln-hack/issues"
+  },
+  "homepage": "https://github.com/Tarkan1857/lincoln-hack#readme"
+}
