@@ -1,3 +1,10 @@
-import * as PIXI from 'pixi.js';
+import * as io from 'socket.io';
+import {Game} from "../server/game";
 
-const game = new PIXI.Application();
+const socket = io();
+
+socket.on('ready', () => {
+    new Game(socket);
+});
+
+

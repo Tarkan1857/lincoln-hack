@@ -7,13 +7,14 @@ const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 
 app.get('/', (req: any, res: any) => {
-    res.send(`${__dirname}\\index.html`);
+    res.send(`${__dirname}..\\index.html`);
 });
 
 http.listen(port, () => {
     console.log(`listening on *:${port}`);
 });
 
+let state = 'init';
 const userSockets: Socket[] = [];
 const users: User[] = [];
 
@@ -25,7 +26,7 @@ io.on('connection', (socket: Socket) => {
     users.push(user);
 
     socket.on('setName', (name) => {
-
+        user.name = name;
     });
 
     socket.on('chat', (msg) => {
@@ -37,3 +38,4 @@ io.on('connection', (socket: Socket) => {
         console.log('user disconnected');
     })
 });
+
