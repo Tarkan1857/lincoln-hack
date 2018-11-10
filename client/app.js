@@ -1,16 +1,17 @@
 import {Game} from "./game.js";
-import {Chat} from "./chat.js";
+import {createChat} from "./chat.js";
+import {getUserName} from "./user.js";
 
 const socket = io('http://localhost:3000');
 
-socket.on('ready', () => {
+getUserName(socket, document.querySelector('main')).then((name) => {
     const main = document.querySelector('main');
     const game = new Game(socket);
+    const chat = createChat(socket, document.body);
 });
 
-// DEBUG
-const game = new Game(socket);
-const chat = new Chat(socket, document.body);
-chat.init();
+// // DEBUG
+// const game = new Game(socket);
+
 
 

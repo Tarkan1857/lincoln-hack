@@ -16,7 +16,6 @@ let currentTeam = 0;
 
 io.on('connection', (socket: Socket) => {
     console.log('user connected');
-    socket.emit('nameRequest');
     userSockets.push(socket);
     const user = new User(currentTeam);
     currentTeam = currentTeam === 0 ? 1 : 0;
@@ -31,6 +30,7 @@ io.on('connection', (socket: Socket) => {
     socket.on('ready', (msg) => {
         user.ready = true;
         user.name = msg;
+        console.log(`User named ${msg}`);
         if(checkReady() || checkPlayerCount()) {
             startGame()
         }
