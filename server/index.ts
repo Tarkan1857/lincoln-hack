@@ -1,4 +1,5 @@
 import {Socket} from "socket.io";
+import {User} from "./user";
 
 const app = require('express')();
 const http = require('http').Server(app);
@@ -14,10 +15,18 @@ http.listen(port, () => {
 });
 
 const userSockets: Socket[] = [];
+const users: User[] = [];
 
 io.on('connection', (socket: Socket) => {
     console.log('user connected');
+    socket.emit('nameRequest');
     userSockets.push(socket);
+    const user = new User();
+    users.push(user);
+
+    socket.on('setName', (name) => {
+
+    });
 
     socket.on('chat', (msg) => {
         io.emit('chat', msg);
