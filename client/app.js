@@ -3,6 +3,13 @@ import {createChat} from "./chat.js";
 import {getUserName} from "./user.js";
 
 const socket = io('http://localhost:3000');
+const assets = [
+    ['pip', './client/GFX/Hp_pip.jpg'],
+    ['map', './client/GFX/Map.jpg'],
+];
+
+assets.forEach((a) => PIXI.loader.add(a[0], a[1]));
+PIXI.loader.load();
 
 getUserName(socket, document.querySelector('main')).then((name) => {
     const main = document.querySelector('main');

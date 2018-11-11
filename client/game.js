@@ -23,9 +23,20 @@ export class Game {
     }
 
     spawnObjects(game) {
-        const background = new PIXI.Sprite.fromImage("GFX/Map.jpg");
+        const background = new PIXI.Sprite.fromImage("map");
         game.stage.addChild(background);
-        //this.spawnButton(game);
+        this.spawnButton(game);
+
+        this.spawnHealthbar(game);
+    }
+
+    spawnHealthbar(game)
+    {
+        this.healthBar = new HealthBar(100);
+        this.healthBar.x = 325;
+        this.healthBar.y = 16;
+
+        game.stage.addChild(this.healthBar);
     }
 
     spawnButton(game) {
@@ -33,4 +44,3 @@ export class Game {
         game.stage.addChild(button);
     }
 }
-
