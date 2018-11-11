@@ -1,6 +1,7 @@
 import {Game} from "./game.js";
 import {createChat} from "./chat.js";
 import {getUserName} from "./user.js";
+import {Timer} from "./ui/timer.js";
 const socket = io('https://quiet-basin-53894.herokuapp.com');
 //const socket = io('http://localhost:3000');
 const assets = [

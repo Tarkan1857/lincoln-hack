@@ -1,5 +1,6 @@
 import {Button} from "./ui/button.js";
 import {HealthBar} from "./ui/health-bar.js";
+import {Timer} from "./ui/timer.js";
 
 export class Game {
     constructor(socket) {
@@ -38,6 +39,11 @@ export class Game {
         this.spawnButton(game);
 
         this.spawnHealthbar(game);
+
+        const timer = new Timer(this._socket);
+        timer.x = 1041;
+        timer.y = 8;
+        game.stage.addChild(timer);
     }
 
     spawnMapSegments(game)
@@ -86,7 +92,7 @@ export class Game {
     }
 
     spawnButton(game) {
-        const button = new Button(this.view.width * 0.5, this.view.height * 0.5, 100, 100);
+        const button = new Button(this.view.width * 0.5, this.view.height * 0.5, 100, 100, this._socket, 1);
         game.stage.addChild(button);
     }
 
