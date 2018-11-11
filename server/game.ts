@@ -1,7 +1,7 @@
 import {Server} from "socket.io";
 import {Team, User} from "./user";
 
-const roundTime = 15;
+const roundTime = 15000;
 const initialHealth = 100;
 const roundCount = 2;
 const timeBetweenRounds = 1000;
@@ -43,7 +43,7 @@ export class Game {
     }
     private tick(startTime: number) {
         if(Date.now() < startTime + roundTime * 1000 && this.voteCount < this.votes[0].length + this.votes[1].length) {
-            this.io.emit('time-remaining', (startTime + roundTime * 1000) - Date.now());
+            this.io.emit('time-remaining', (startTime + roundTime) - Date.now());
             setTimeout(() => this.tick(startTime), 500);
         }
         else {
@@ -71,6 +71,8 @@ export class Game {
         else {
             damage = damageTable[orderAction][chaosAction]
         }
+
+        this.io.emit('resolved', orderAction, chaosAction);
 
         console.log(`damage: ${damage}`);
         this.currentHealth -= damage;
