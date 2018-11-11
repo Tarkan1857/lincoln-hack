@@ -12,7 +12,7 @@ const maxPlayerCount = 50;
 let state = 'init';
 const users: User[] = [];
 let currentTeam = Team.CHAOS;
-
+console.log(`running on ${port}`);
 io.on('connection', (socket: Socket) => {
     console.log('user connected');
     const user = new User(currentTeam, socket);
@@ -31,7 +31,7 @@ io.on('connection', (socket: Socket) => {
         console.log(`User named ${msg}`);
         io.emit('player-joined', msg);
         if(checkReady() || checkPlayerCount()) {
-            console.log('starting game')
+            console.log('starting game');
             startGame()
         }
     });

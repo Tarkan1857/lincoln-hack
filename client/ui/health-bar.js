@@ -25,8 +25,7 @@ export class HealthBar extends PIXI.Container {
        this.health -= amount;
        this.health < 0 && (this.health = 0);
 
-       // FIXME: This seems like it's probably wrong, but I am nowhere near awake enough to figure out what it should be.
-       const targetPips = this.health / this.healthPerTick;
+       const targetPips = Math.ceil(this.healthPerTick * this.health);
        const difference = currentPips - targetPips;
        for(let i = 0; i < difference; i++) {
            const pipToRemove = this.pips.pop();

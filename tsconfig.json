@@ -4,7 +4,8 @@
     "noImplicitAny": true,
     "target": "es6",
     "sourceMap": true,
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "outDir": "./server-js"
   },
   "exclude": [
     "node_modules"

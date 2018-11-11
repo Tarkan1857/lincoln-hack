@@ -148,3 +148,5 @@ fabric.properties
 .sass-cache/
 *.css.map
 
+.idea/inspectionProfiles/
+server-js/
