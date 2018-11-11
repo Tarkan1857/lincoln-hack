@@ -5,7 +5,9 @@ const socket = io('https://quiet-basin-53894.herokuapp.com');
 //const socket = io('http://localhost:3000');
 const assets = [
     ['pip', './client/GFX/Hp_pip.jpg'],
-    ['map', './client/GFX/Map.jpg'],
+    ['map', './client/GFX/Map/Map.png'],
+    ['map-overlay', './client/GFX/Map/Map_Overlay.png'],
+    ['health-bar', './client/GFX/Map/hp_bank-264--189.png']
 ];
 
 assets.forEach((a) => PIXI.loader.add(a[0], a[1]));

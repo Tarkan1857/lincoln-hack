@@ -31,6 +31,8 @@ export class Game {
     spawnObjects(game) {
         const background = new PIXI.Sprite.fromImage("map");
         game.stage.addChild(background);
+        const bgOverlay = new PIXI.Sprite.fromImage("map-overlay");
+        game.stage.addChild(bgOverlay);
         this.spawnButton(game);
 
         this.spawnHealthbar(game);
@@ -38,6 +40,11 @@ export class Game {
 
     spawnHealthbar(game)
     {
+        let healthBarBG = new PIXI.Sprite.fromImage('health-bar');
+        healthBarBG.position.x = 264;
+        healthBarBG.position.y = 0;
+        game.stage.addChild(healthBarBG);
+
         this.healthBar = new HealthBar(100);
         this.healthBar.x = 325;
         this.healthBar.y = 16;
@@ -50,7 +57,7 @@ export class Game {
         game.stage.addChild(button);
     }
 
-    onGameReady(name) {
-        this.players.push(name)
+    onGameReady() {
+        return;
     }
 }
