@@ -72,6 +72,7 @@ function restart() {
      user.socket.disconnect(true);
  }
  game.stop();
+ game.start();
 }
 
 server.listen(port);
