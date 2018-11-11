@@ -36,6 +36,10 @@ io.on('connection', (socket: Socket) => {
         }
     });
 
+    socket.on('restart', () => {
+        restart();
+    });
+
     socket.on('disconnect', () => {
         const userIndex = users.indexOf(user);
         users.splice(userIndex, 1);
@@ -57,6 +61,14 @@ function startGame() {
     io.emit('state', state);
     const game = new Game(io, users);
     game.start();
+}
+
+function restart() {
+ state = 'init';
+ while(this.users.length) {
+     const user = this.user.pop();
+     user.socket.disconnect(true);
+ }
 }
 
 server.listen(port);
