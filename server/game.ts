@@ -1,5 +1,6 @@
 import {Server} from "socket.io";
 import {Team, User} from "./user";
+import Timeout = NodeJS.Timeout;
 
 const roundTime = 15000;
 const initialHealth = 100;
@@ -14,6 +15,8 @@ export class Game {
     private voteCount: number;
     private currentHealth: number = initialHealth;
     private currentTurn: number = 0;
+    private end: boolean = false;
+    private timeout: Timeout;
     constructor(private io: Server, private users: User[]) {}
 
     start() {
@@ -22,6 +25,11 @@ export class Game {
             this.beginVote();
         }, timeBetweenRounds);
 
+    }
+
+    stop() {
+        this.end = true;
+        clearTimeout(this.timeout);
     }
 
 
@@ -44,7 +52,7 @@ export class Game {
     private tick(startTime: number) {
         if(Date.now() < startTime + roundTime * 1000 && this.voteCount < this.votes[0].length + this.votes[1].length) {
             this.io.emit('time-remaining', (startTime + roundTime) - Date.now());
-            setTimeout(() => this.tick(startTime), 500);
+            this.timeout = setTimeout(() => this.tick(startTime), 500);
         }
         else {
             this.io.emit('vote-complete');

@@ -9,6 +9,8 @@ const port = process.env.PORT || 3000;
 const minPlayerCount = 2;
 const maxPlayerCount = 50;
 
+let game: Game;
+
 let state = 'init';
 const users: User[] = [];
 let currentTeam = Team.CHAOS;
@@ -59,7 +61,7 @@ function checkPlayerCount(): boolean {
 function startGame() {
     state = 'play';
     io.emit('state', state);
-    const game = new Game(io, users);
+    game = new Game(io, users);
     game.start();
 }
 
@@ -69,6 +71,8 @@ function restart() {
      const user = this.user.pop();
      user.socket.disconnect(true);
  }
+ game.stop();
+ game.start();
 }
 
 server.listen(port);
