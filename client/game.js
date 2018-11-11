@@ -3,6 +3,7 @@ import {HealthBar} from "./ui/health-bar.js";
 
 export class Game {
     constructor(socket) {
+        this.players = [];
         this._socket = socket;
         this.game = new PIXI.Application({width: 1520, height: 1080, autoResize: true, resolution: devicePixelRatio});
 
@@ -13,7 +14,11 @@ export class Game {
 
         this.spawnObjects(this.game);
 
-        window.addEventListener("resize", this.resize.bind(this))
+        window.addEventListener("resize", this.resize.bind(this));
+
+        this._socket.on("ready", ()=> {
+            this.onGameReady();
+        })
     }
 
     resize() {
@@ -42,5 +47,9 @@ export class Game {
     spawnButton(game) {
         const button = new Button(this.view.width * 0.5, this.view.height * 0.5, 100, 100);
         game.stage.addChild(button);
+    }
+
+    onGameReady(name) {
+        this.players.push(name)
     }
 }
