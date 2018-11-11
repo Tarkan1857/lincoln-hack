@@ -1,8 +1,8 @@
 import {Game} from "./game.js";
 import {createChat} from "./chat.js";
 import {getUserName} from "./user.js";
-//const socket = io('https://quiet-basin-53894.herokuapp.com');
-const socket = io('http://localhost:3000');
+const socket = io('https://quiet-basin-53894.herokuapp.com');
+//const socket = io('http://localhost:3000');
 const assets = [
     ['pip', './client/GFX/Hp_pip.jpg'],
     ['map', './client/GFX/Map.jpg'],
@@ -19,6 +19,10 @@ getUserName(socket, document.querySelector('main')).then((name) => {
 
 // // DEBUG
 // const game = new Game(socket);
+
+document.querySelector('#restart').addEventListener('click', () => {
+    socket.emit('restart');
+});
 
 
 

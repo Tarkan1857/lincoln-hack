@@ -16,7 +16,8 @@ export class Game {
 
         window.addEventListener("resize", this.resize.bind(this));
 
-        this._socket.on("ready", ()=> {
+        this._socket.on("starting", ()=> {
+            console.log('onGameReady');
             this.onGameReady();
         })
     }

@@ -21,3 +21,7 @@ body {
 #chat {
     width: 20%;
 }
+
+#restart {
+    display: none;
+}
