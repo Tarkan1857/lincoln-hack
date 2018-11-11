@@ -1,5 +1,6 @@
 import {Button} from "./ui/button.js";
 import {HealthBar} from "./ui/health-bar.js";
+import {Timer} from "./ui/timer.js";
 
 export class Game {
     constructor(socket) {
@@ -36,6 +37,11 @@ export class Game {
         this.spawnButton(game);
 
         this.spawnHealthbar(game);
+
+        const timer = new Timer(this._socket);
+        timer.x = 1041;
+        timer.y = 8;
+        game.stage.addChild(timer);
     }
 
     spawnHealthbar(game)
