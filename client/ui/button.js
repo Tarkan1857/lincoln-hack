@@ -1,8 +1,10 @@
 export class Button extends PIXI.Sprite {
 
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, socket, value) {
         super();
         this.createButton(x, y, width, height);
+        this._socket = socket;
+        this.value = value;
     }
 
     createButton(x, y, width, height, image) {
@@ -37,9 +39,8 @@ export class Button extends PIXI.Sprite {
         console.log('%cClicked', 'background: #000; color: #fff; font-weight:bold');
 
         // TODO: do callback stuff
+        this._socket.emit('value', this.value);
     }
-
-
 }
 
 

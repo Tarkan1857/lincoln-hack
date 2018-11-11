@@ -59,7 +59,7 @@ export class Game {
     }
 
     spawnButton(game) {
-        const button = new Button(this.view.width * 0.5, this.view.height * 0.5, 100, 100);
+        const button = new Button(this.view.width * 0.5, this.view.height * 0.5, 100, 100, this._socket, 1);
         game.stage.addChild(button);
     }
 
